@@ -16,6 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "heroku-postbuild": "npm run build",
+    "server":"node server",
     "web": "npm start",
     "eject": "react-scripts eject"
   },
