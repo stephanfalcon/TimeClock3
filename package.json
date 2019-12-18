@@ -1,6 +1,7 @@
 {
   "name": "timeclock3",
   "version": "0.1.0",
+  "https":true,
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -12,7 +13,7 @@
     "react-scripts": "3.3.0"
   },
   "scripts": {
-    "start": "set HTTPS=true&&react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "heroku-postbuild": "npm run build",
