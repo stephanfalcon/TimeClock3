@@ -8,7 +8,7 @@ class App extends Component{
     super()
     this.state = {
       // in standard
-      currentDisplay:"",
+      currentDisplay:"00:00:00",
       clockInDisplay:"00:00:00",
 
       //in military
@@ -31,7 +31,6 @@ class App extends Component{
     var clockIn = new Time()
     this.setState({clockInTime:clockIn.military})
     this.setState({clockInDisplay:clockIn.time})
-    console.log(this.state)
   }
 
   //function to tell time difference
@@ -45,6 +44,9 @@ class App extends Component{
     var clM = parseInt(this.state.clockInTime.slice(3,5))
     var clS = parseInt(this.state.clockInTime.slice(6))
 
+    // console.log(this.state.currentTime)
+    // console.log(this.state.clockInTime)
+    // console.log(cH,cM,cS)
     var tph,tpm,tps
     
     //makes it so time passed is not negative, then suptracts
