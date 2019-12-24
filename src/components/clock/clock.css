@@ -1,0 +1,5 @@
+.clock{
+    background-image:linear-gradient(transparent,rgb(17, 17, 65),rgb(17, 17, 65));
+    color:white;
+    border-radius: 10px;
+}
