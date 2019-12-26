@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Clock from "./components/clock/clock"
 import Button from "./components/button/button"
 import Time from "./time"
+import axios from "axios"
 
 class App extends Component{
   constructor(){
@@ -24,6 +25,8 @@ class App extends Component{
       this.setState({currentTime:time.military})
       this.setState({currentDisplay:time.time})
       this.timeDiff()
+      // console.log(this.state)
+
     }, 1000);
   }
   // records current time to subtract difference from
@@ -31,6 +34,16 @@ class App extends Component{
     var clockIn = new Time()
     this.setState({clockInTime:clockIn.military})
     this.setState({clockInDisplay:clockIn.time})
+  }
+
+  apiCall = () => {
+    axios.get("https://timeclockapi.herokuapp.com/clocklog")
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
   }
 
   //function to tell time difference
@@ -51,6 +64,7 @@ class App extends Component{
     
     //makes it so time passed is not negative, then suptracts
     //to give time difference
+    tph = cH-clH
     if (cM<clM){
       tph -= 1
       tpm = 60-clM+cM
@@ -63,7 +77,7 @@ class App extends Component{
     }else{
       tps = cS-clS
     }
-    tph = cH-clH
+    
     
     // adds 0 to single digits for asthestics
     if(tph<10){
@@ -91,7 +105,7 @@ class App extends Component{
       <div className={"container"}>
         <h1>Time clock</h1>
         <div className={"container"}>
-          <Button func1={this.clockIn} func2={this.timeDiff}/>
+          <Button func1={this.clockIn} func2={this.apiCall}/>
         </div>
 
         <div className={"row"}>
