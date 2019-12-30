@@ -49,16 +49,10 @@ class App extends Component{
   }
 
   apiPost = () => {
-    var shift = {
-      clockInTime:this.state.clockInTime,
-      clockOutTime:this.state.currentTime,
-      timePassed:this.state.timePassed,
-      note:"this is only a test"
-    }
     console.log("this function works")
     axios.post("https://timeclockapi.herokuapp.com/clocklog",{
-      clockInTime:this.state.clockInTime,
-      clockOutTime:this.state.currentTime,
+      clockInTime:this.state.clockInDisplay,
+      clockOutTime:this.state.currentDisplay,
       timePassed:this.state.timePassed,
       note:"this is only a test"
     })
