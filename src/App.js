@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import Clock from "./components/clock/clock"
-import Button from "./components/button/button"
 import Time from "./time"
 import axios from "axios"
+
+import Clock from "./components/clock/clock"
+import Button from "./components/button/button"
+import Log from "./components/log/log"
 
 class App extends Component{
   constructor(){
@@ -15,11 +17,19 @@ class App extends Component{
       //in military
       currentTime:"00:00:00",
       clockInTime:"00:00:00",
-      timePassed:"00:00:00"
+      timePassed:"00:00:00",
+      logs:[]
+
     }
   }  
   //starts ticking for current time
   componentDidMount(){
+    this.startTimer()
+    this.apiCall()
+
+  }
+
+  startTimer = ()=>{
     setInterval(() => {
       var time = new Time()
       this.setState({currentTime:time.military})
@@ -29,6 +39,8 @@ class App extends Component{
 
     }, 1000);
   }
+
+
   // records current time to subtract difference from
   clockIn = () => {
     var clockIn = new Time()
@@ -36,14 +48,17 @@ class App extends Component{
     this.setState({clockInDisplay:clockIn.time})
   }
 
+  // apiPost = ()
+
   apiCall = () => {
     axios.get("https://timeclockapi.herokuapp.com/clocklog")
     .then((res)=>{
-      console.log(res)
+      this.setState({logs:res.data.docs})
     })
     .catch((err)=>{
       console.log(err)
     })
+
   }
 
   //function to tell time difference
@@ -98,6 +113,7 @@ class App extends Component{
       this.setState({timePassed:"00:00:00"})
     }
   }
+  
 
 
   render(){
@@ -113,7 +129,7 @@ class App extends Component{
           <Clock title={"Clocked in:"} time={this.state.clockInDisplay} />
           <Clock title={"Time passed:"} time={this.state.timePassed}/>
         </div>
-
+        <Log entries={this.state.logs}/>
       </div>
     )
   }
