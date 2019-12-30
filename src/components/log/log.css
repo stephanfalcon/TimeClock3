@@ -1,28 +1,24 @@
 .log-div{
     background: rgb(243, 228, 223);
-    border-radius: 10px;
+    border-radius: 2px;
     margin-bottom:5px;
-    opacity:0;
     animation-name: "fadein";
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
 
 @keyframes fadein{
-    from {
-        opacity:0;
-        height:0px;}
-    to {opacity:1;
-        height:5%}
+    from {opacity:0;}
+    to {opacity:1;}
   }
 
 .delete{
     background:salmon;
     color: #555555;
     transition-duration: .25;
-    animation-name: "fadein";
+    /* animation-name: "fadein";
     animation-duration: 1s;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards; */
 }
 
 .delete-text{
