@@ -48,17 +48,53 @@ class App extends Component{
     this.setState({clockInDisplay:clockIn.time})
   }
 
-  // apiPost = ()
+  apiPost = () => {
+    var shift = {
+      clockInTime:this.state.clockInTime,
+      clockOutTime:this.state.currentTime,
+      timePassed:this.state.timePassed,
+      note:"this is only a test"
+    }
+    console.log("this function works")
+    axios.post("https://timeclockapi.herokuapp.com/clocklog",{
+      clockInTime:this.state.clockInTime,
+      clockOutTime:this.state.currentTime,
+      timePassed:this.state.timePassed,
+      note:"this is only a test"
+    })
+    // axios.post("https://timeclockapi.herokuapp.com/clocklog",shift)
+    .then((res)=>{
+      console.log(res)
+      this.apiCall()
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+    
+  }
 
   apiCall = () => {
     axios.get("https://timeclockapi.herokuapp.com/clocklog")
     .then((res)=>{
-      this.setState({logs:res.data.docs})
+      this.setState({logs:res.data.docs.reverse()})
     })
     .catch((err)=>{
       console.log(err)
     })
 
+  }
+
+  apiDelete = (event) =>{
+    var id = event.target.dataset.id
+    axios.delete(`https://timeclockapi.herokuapp.com/clocklog/${id}`)
+    .then((res)=>{
+      console.log(res)
+      this.apiCall()
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+    
   }
 
   //function to tell time difference
@@ -121,7 +157,7 @@ class App extends Component{
       <div className={"container"}>
         <h1>Time clock</h1>
         <div className={"container"}>
-          <Button func1={this.clockIn} func2={this.apiCall}/>
+          <Button func1={this.clockIn} func2={this.apiPost}/>
         </div>
 
         <div className={"row"}>
@@ -129,7 +165,7 @@ class App extends Component{
           <Clock title={"Clocked in:"} time={this.state.clockInDisplay} />
           <Clock title={"Time passed:"} time={this.state.timePassed}/>
         </div>
-        <Log entries={this.state.logs}/>
+        <Log entries={this.state.logs} function={this.apiDelete}/>
       </div>
     )
   }
