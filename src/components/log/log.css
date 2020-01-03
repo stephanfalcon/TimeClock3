@@ -17,6 +17,10 @@
 .title{
     color:white
 }
+.item{
+    font-size: 18px;
+    padding:5px;
+}
 
 @keyframes fadein{
     from {opacity:0;

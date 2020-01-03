@@ -11,6 +11,9 @@ class App extends Component{
   constructor(){
     super()
     this.state = {
+
+      date:"",
+
       // in standard
       currentDisplay:"00:00:00",
       clockInDisplay:"00:00:00",
@@ -34,11 +37,13 @@ class App extends Component{
   startTimer = ()=>{
     setInterval(() => {
       var time = new Time()
-      this.setState({currentTime:time.military})
-      this.setState({currentDisplay:time.time})
+      this.setState({
+        currentTime:time.military,
+        currentDisplay:time.time,
+        date:time.calendar
+      })
+      this.setState({})
       this.timeDiff()
-      // console.log(this.state)
-
     }, 1000);
   }
 
@@ -47,9 +52,12 @@ class App extends Component{
   clockIn = () => {
     if(this.state.clockedIn === false){
       var clockIn = new Time()
-      this.setState({clockInTime:clockIn.military})
-      this.setState({clockInDisplay:clockIn.time})
-      this.setState({clockedIn:true})
+      this.setState({
+        clockInTime:clockIn.military,
+        clockInDisplay:clockIn.time,
+        clockedIn:true
+      })
+
     }else{
       alert("You are already clocked in")
     }
@@ -58,7 +66,12 @@ class App extends Component{
   clockOut = () => {
     if(this.state.clockedIn === true){
       this.apiPost()
-      this.setState({clockedIn:false})
+      this.setState({
+        clockedIn:false,
+        clockInDisplay:"00:00:00",
+        clockInTime:"00:00:00",
+        timePassed:"00:00:00"
+      })
     }else {
       alert("You are not clocked in")
     }
@@ -70,6 +83,7 @@ class App extends Component{
       clockInTime:this.state.clockInDisplay,
       clockOutTime:this.state.currentDisplay,
       timePassed:this.state.timePassed,
+      date:this.state.date,
       note:"this is only a test"
     })
     // axios.post("https://timeclockapi.herokuapp.com/clocklog",shift)

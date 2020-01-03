@@ -2,6 +2,12 @@ class Time {
     constructor(){
         this.date = new Date()
 
+        this.year = this.date.getFullYear()
+        this.month = this.date.getMonth()
+        this.day = this.date.getDate()
+
+        this.DotW = this.date.getDay()
+
         this.hours = this.date.getHours()
         this.minutes = this.date.getMinutes()
         this.seconds = this.date.getSeconds()
@@ -25,6 +31,8 @@ class Time {
         
         this.time = `${this.hours}:${this.minutes}:${this.seconds}`
         this.military = `${this.mHours}:${this.minutes}:${this.seconds}`
+
+        this.calendar = `${1+this.month}/${this.day}/${this.year}`
     }
 }
 
