@@ -20,7 +20,12 @@ class Time {
             this.mHours = `0${this.mHours}`
         }
         if(this.hours<10){
-            this.hours = `0${this.hours}`
+            if(this.hours == 0 ){
+                this.hours = 12
+            }else{
+                this.hours = `0${this.hours}`
+            }
+            
         }
         if(this.minutes<10){
             this.minutes = `0${this.minutes}`
