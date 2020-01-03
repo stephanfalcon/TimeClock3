@@ -6,6 +6,7 @@ import Clock from "./components/clock/clock"
 import Button from "./components/button/button"
 import Log from "./components/log/log"
 
+
 class App extends Component{
   constructor(){
     super()
@@ -18,7 +19,8 @@ class App extends Component{
       currentTime:"00:00:00",
       clockInTime:"00:00:00",
       timePassed:"00:00:00",
-      logs:[]
+      logs:[],
+      clockedIn: false
 
     }
   }  
@@ -43,9 +45,23 @@ class App extends Component{
 
   // records current time to subtract difference from
   clockIn = () => {
-    var clockIn = new Time()
-    this.setState({clockInTime:clockIn.military})
-    this.setState({clockInDisplay:clockIn.time})
+    if(this.state.clockedIn === false){
+      var clockIn = new Time()
+      this.setState({clockInTime:clockIn.military})
+      this.setState({clockInDisplay:clockIn.time})
+      this.setState({clockedIn:true})
+    }else{
+      alert("You are already clocked in")
+    }
+  }
+
+  clockOut = () => {
+    if(this.state.clockedIn === true){
+      this.apiPost()
+      this.setState({clockedIn:false})
+    }else {
+      alert("You are not clocked in")
+    }
   }
 
   apiPost = () => {
@@ -151,7 +167,7 @@ class App extends Component{
       <div className={"container"}>
         <h1>Time clock</h1>
         <div className={"container"}>
-          <Button func1={this.clockIn} func2={this.apiPost}/>
+          <Button func1={this.clockIn} func2={this.clockOut} clockedIn={this.state.clockedIn}/>
         </div>
 
         <div className={"row"}>

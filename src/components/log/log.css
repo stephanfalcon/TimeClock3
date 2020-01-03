@@ -1,10 +1,21 @@
 .log-div{
-    background: rgb(243, 228, 223);
+    background: white;
+    color: black;
     border-radius: 2px;
     margin-bottom:5px;
     animation-name: "fadein";
     animation-duration: 1s;
     animation-fill-mode: forwards;
+}
+.log-container{
+    background: rgb(27, 27, 27);
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom:2%;
+    border-radius: 10px;
+}
+.title{
+    color:white
 }
 
 @keyframes fadein{
