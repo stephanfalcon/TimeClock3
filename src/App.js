@@ -5,6 +5,7 @@ import axios from "axios"
 import Clock from "./components/clock/clock"
 import Button from "./components/button/button"
 import Log from "./components/log/log"
+import Text from "./components/text/text"
 
 
 class App extends Component{
@@ -22,6 +23,7 @@ class App extends Component{
       currentTime:"00:00:00",
       clockInTime:"00:00:00",
       timePassed:"00:00:00",
+      note:"",
       logs:[],
       clockedIn: false
 
@@ -40,7 +42,8 @@ class App extends Component{
       this.setState({
         currentTime:time.military,
         currentDisplay:time.time,
-        date:time.calendar
+        date:time.calendar,
+        note:document.getElementsByClassName("text")[0].value
       })
       this.setState({})
       this.timeDiff()
@@ -70,8 +73,10 @@ class App extends Component{
         clockedIn:false,
         clockInDisplay:"00:00:00",
         clockInTime:"00:00:00",
-        timePassed:"00:00:00"
+        timePassed:"00:00:00",
+        note:""
       })
+      document.getElementsByClassName("text")[0].value = ""
     }else {
       alert("You are not clocked in")
     }
@@ -189,6 +194,8 @@ class App extends Component{
           <Clock title={"Clocked in:"} time={this.state.clockInDisplay} />
           <Clock title={"Time passed:"} time={this.state.timePassed}/>
         </div>
+        {/* notes go here */}
+        <Text></Text>
         <Log entries={this.state.logs} function={this.apiDelete}/>
       </div>
     )

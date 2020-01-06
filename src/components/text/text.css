@@ -1,0 +1,11 @@
+.text{
+    width:100%;
+    font-size:20px
+}
+
+.text-div{
+    background: #222222;
+    padding:10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
