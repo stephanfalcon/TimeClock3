@@ -4,6 +4,10 @@ import "./log.css"
 class Log extends Component{
 
 
+    componentDidMount(){
+        console.log("loaded")
+    }
+
   render(){
     return(
         <div className={"log-container col-lg-12"}>

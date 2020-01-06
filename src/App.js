@@ -25,6 +25,7 @@ class App extends Component{
       timePassed:"00:00:00",
       note:"",
       logs:[],
+      logLoaded:false,
       clockedIn: false
 
     }
@@ -89,7 +90,7 @@ class App extends Component{
       clockOutTime:this.state.currentDisplay,
       timePassed:this.state.timePassed,
       date:this.state.date,
-      note:"this is only a test"
+      note:this.state.note
     })
     // axios.post("https://timeclockapi.herokuapp.com/clocklog",shift)
     .then((res)=>{
@@ -184,6 +185,7 @@ class App extends Component{
   render(){
     return(
       <div className={"container"}>
+        
         <h1>Time clock</h1>
         <div className={"container"}>
           <Button func1={this.clockIn} func2={this.clockOut} clockedIn={this.state.clockedIn}/>
