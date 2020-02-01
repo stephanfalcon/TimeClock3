@@ -20,6 +20,17 @@
 .item{
     font-size: 18px;
     padding:5px;
+    margin-top: 5px;
+    padding-top:0px;
+}
+.note{
+    padding-right:10px;
+    transition-duration: .25s;
+    height:65%;
+    border-radius: 5px;
+}
+.note:hover{
+    background:rgb(151, 151, 151)
 }
 
 @keyframes fadein{
@@ -30,9 +41,11 @@
   }
 
 .delete{
+    margin-top:5px;
     background:salmon;
     color: #555555;
-    transition-duration: .25;
+    border-radius: 10px;
+    transition-duration: .5;
     /* animation-name: "fadein";
     animation-duration: 1s;
     animation-fill-mode: forwards; */

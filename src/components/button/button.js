@@ -33,7 +33,7 @@ class Button extends Component{
     return(
       <div className={"row buttons"}>
           <button style={clockInStyle} className={"btn btn-primary"} onClick={this.props.func1}>Clock in</button>
-          <button style={clockOutStyle} lassName={"btn btn-warning"} onClick={this.props.func2}>Clock out</button>
+          <button style={clockOutStyle} className={"btn btn-warning"} onClick={this.props.func2}>Clock out</button>
       </div>
     )
   }

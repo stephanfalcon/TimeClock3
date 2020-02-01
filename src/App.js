@@ -127,6 +127,35 @@ class App extends Component{
     
   }
 
+  apiEdit = (event) => {
+    let id = event.target.dataset.id
+    let newValue = event.target.value
+
+    console.log(id,newValue)
+
+
+    axios.put(`https://timeclockapi.herokuapp.com/clocklog/${id}`,{
+      note:newValue
+    })
+    .then((res)=>{
+      console.log(res)
+      this.apiCall()
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
+  }
+
+  focus = () => {
+    console.log("this has focus")
+  }
+
+  offFocus = (event) => {
+    console.log("this has lost focus")
+    this.apiEdit(event)
+  }
+
   //function to tell time difference
   timeDiff = () => {
     //setting up current time and clock in time
@@ -198,7 +227,7 @@ class App extends Component{
         </div>
         {/* notes go here */}
         <Text></Text>
-        <Log entries={this.state.logs} function={this.apiDelete}/>
+        <Log entries={this.state.logs} function={this.apiDelete} focus={this.focus} offFocus={this.offFocus}/>
       </div>
     )
   }
