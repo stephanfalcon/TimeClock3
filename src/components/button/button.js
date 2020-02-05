@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import "./button.css"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
+
 class Button extends Component{
 
-  
+
+
 
   render(){
+    
+    var indicator = ''
+
+    if (this.props.clockedIn === true){
+    indicator = "you are clocked in"
+    }else{
+    indicator = "you are clocked out"
+    }
     var clockInStyle = {
       background:"#048def",
       borderWidth:"0px",
@@ -16,10 +28,20 @@ class Button extends Component{
       borderWidth:"0px",
       borderRadius:"5px"
     }
+    var indicatorStyle = {
+      background:"#7F0000",
+      borderWidth:"0px",
+      borderRadius:"5px"
+    }
 
     if (this.props.clockedIn === true){
       clockInStyle={
         background:"#01497c",
+        borderWidth:"0px",
+        borderRadius:"5px"
+      }
+      indicatorStyle = {
+        background:"#008000",
         borderWidth:"0px",
         borderRadius:"5px"
       }
@@ -30,11 +52,16 @@ class Button extends Component{
         borderRadius:"5px"
       }
     }
+
     return(
       <div className={"row buttons"}>
           <button style={clockInStyle} className={"btn btn-primary"} onClick={this.props.func1}>Clock in</button>
           <button style={clockOutStyle} className={"btn btn-warning"} onClick={this.props.func2}>Clock out</button>
+          <button style={indicatorStyle} className={"btn flex-right ml-auto p-2 bd-highlight"}>{indicator}<FontAwesomeIcon icon={'faLightbulb'}/></button>
+
+          
       </div>
+      
     )
   }
 }

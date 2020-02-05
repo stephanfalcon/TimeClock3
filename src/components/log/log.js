@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import "./log.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 class Log extends Component{
 

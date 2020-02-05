@@ -8,6 +8,9 @@ import Log from "./components/log/log"
 import Text from "./components/text/text"
 
 
+
+
+
 class App extends Component{
   constructor(){
     super()
@@ -26,7 +29,8 @@ class App extends Component{
       note:"",
       logs:[],
       logLoaded:false,
-      clockedIn: false
+      clockedIn: false,
+      indicator
 
     }
   }  
@@ -215,7 +219,8 @@ class App extends Component{
     return(
       <div className={"container"}>
         
-        <h1>Time clock</h1>
+        <h1>Time clock </h1>
+        
         <div className={"container"}>
           <Button func1={this.clockIn} func2={this.clockOut} clockedIn={this.state.clockedIn}/>
         </div>
