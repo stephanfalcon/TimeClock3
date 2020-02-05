@@ -7,10 +7,6 @@ import Button from "./components/button/button"
 import Log from "./components/log/log"
 import Text from "./components/text/text"
 
-
-
-
-
 class App extends Component{
   constructor(){
     super()
@@ -218,7 +214,7 @@ class App extends Component{
   render(){
     return(
       <div className={"container"}>
-        
+
         <h1>Time clock </h1>
         
         <div className={"container"}>

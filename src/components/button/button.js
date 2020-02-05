@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import "./button.css"
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
 
 class Button extends Component{
 
@@ -57,9 +55,7 @@ class Button extends Component{
       <div className={"row buttons"}>
           <button style={clockInStyle} className={"btn btn-primary"} onClick={this.props.func1}>Clock in</button>
           <button style={clockOutStyle} className={"btn btn-warning"} onClick={this.props.func2}>Clock out</button>
-          <button style={indicatorStyle} className={"btn flex-right ml-auto p-2 bd-highlight"}>{indicator}<FontAwesomeIcon icon={'faLightbulb'}/></button>
-
-          
+          <button style={indicatorStyle} className={"btn flex-right ml-auto p-2 bd-highlight"}>{indicator}</button>
       </div>
       
     )
