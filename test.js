@@ -1,0 +1,1 @@
+console.log(typeof ["poop",1])
