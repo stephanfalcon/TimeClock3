@@ -12,9 +12,9 @@ class Button extends Component{
     var indicator = ''
 
     if (this.props.clockedIn === true){
-    indicator = "you are clocked in"
+    indicator = "Clocked in"
     }else{
-    indicator = "you are clocked out"
+    indicator = "Clocked out"
     }
     var clockInStyle = {
       background:"#048def",
