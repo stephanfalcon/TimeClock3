@@ -6,16 +6,22 @@
     animation-name: "fadein";
     animation-duration: 1s;
     animation-fill-mode: forwards;
+
+    /* height:50%; */
 }
 .log-container{
     background: rgb(27, 27, 27);
     padding-left: 3%;
     padding-right: 3%;
     padding-bottom:2%;
+    height:100%;
     border-radius: 10px;
+    margin-left: 5px;
+    padding:2%
+    /* margin-bottom: 0px; */
 }
 .title{
-    color:white
+    color:white;
 }
 .item{
     font-size: 18px;
@@ -33,12 +39,12 @@
     background:rgb(151, 151, 151)
 }
 
-@keyframes fadein{
+/* @keyframes fadein{
     from {opacity:0;
     height:0px}
     to {opacity:1;
     height:40px}
-  }
+  } */
 
 .delete{
     margin-top:5px;
@@ -52,7 +58,7 @@
 }
 
 .delete-text{
-    font-size:px;
+    /* font-size:px; */
     font-weight: bold;
     margin-bottom: 0px;
     
@@ -60,4 +66,24 @@
 
 .delete:hover{
     background:red
+}
+
+@media screen and (max-width:400px){
+    .log-div{
+        margin-left:5%;
+        margin-right:5px;
+        align-content: center;
+    }
+    .item{
+        margin:1px;
+        padding:0px;
+    }
+    .log-content{
+        align-content: center;
+        padding:0px
+    }
+    .delete{
+        margin-bottom:2%;
+        width:20%
+    }
 }
