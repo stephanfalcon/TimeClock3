@@ -8,9 +8,6 @@ var timeDiff = (currentTime,clockinTime) => {
     var clockInM = parseInt(clockinTime.slice(3,5))
     var clockInS = parseInt(clockinTime.slice(6))
     
-    // console.log(this.state.currentTime)
-    // console.log(clockinTime)
-    // console.log(currentH,currentM,currentS)
     var timepassedH,timepassedM,timepassedS
     
     var timePassed
@@ -43,8 +40,6 @@ var timeDiff = (currentTime,clockinTime) => {
         timepassedS = `0${timepassedS}`
     }
     
-    // sets state of time passed
-    // this.setState({timePassed:`${timepassedH}:${timepassedM}:${timepassedS}`})
     
     // if you arent clocked in does not set time passed timer
     timePassed = `${timepassedH}:${timepassedM}:${timepassedS}`
