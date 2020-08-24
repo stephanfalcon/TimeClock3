@@ -3,10 +3,7 @@ import "./button.css"
 
 
 class Button extends Component{
-
-
-
-
+  
   render(){
     
     var indicator = ''
