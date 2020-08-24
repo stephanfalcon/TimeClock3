@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Time from "./time"
+import timeDiff from "./timediff"
+
 import axios from "axios"
 
 import Clock from "./components/clock/clock"
@@ -37,6 +39,7 @@ class App extends Component{
 
   }
 
+  //starts time ticking for current time 
   startTimer = ()=>{
     setInterval(() => {
       var time = new Time()
@@ -47,7 +50,7 @@ class App extends Component{
         note:document.getElementsByClassName("text")[0].value
       })
       this.setState({})
-      this.timeDiff()
+      this.setState({timePassed:timeDiff(this.state.currentTime,this.state.clockInTime)})
     }, 1000);
   }
 
@@ -70,6 +73,7 @@ class App extends Component{
   clockOut = () => {
     if(this.state.clockedIn === true){
       this.apiPost()
+      
       this.setState({
         clockedIn:false,
         clockInDisplay:"00:00:00",
@@ -111,7 +115,6 @@ class App extends Component{
     .catch((err)=>{
       console.log(err)
     })
-
   }
 
   apiDelete = (event) =>{
@@ -155,61 +158,6 @@ class App extends Component{
     console.log("this has lost focus")
     this.apiEdit(event)
   }
-
-  //function to tell time difference
-  timeDiff = () => {
-    //setting up current time and clock in time
-    var cH = parseInt(this.state.currentTime.slice(0,2))
-    var cM = parseInt(this.state.currentTime.slice(3,5))
-    var cS = parseInt(this.state.currentTime.slice(6))
-
-    var clH = parseInt(this.state.clockInTime.slice(0,2))
-    var clM = parseInt(this.state.clockInTime.slice(3,5))
-    var clS = parseInt(this.state.clockInTime.slice(6))
-
-    // console.log(this.state.currentTime)
-    // console.log(this.state.clockInTime)
-    // console.log(cH,cM,cS)
-    var tph,tpm,tps
-    
-    //makes it so time passed is not negative, then suptracts
-    //to give time difference
-    tph = cH-clH
-    if (cM<clM){
-      tph -= 1
-      tpm = 60-clM+cM
-    }else{
-      tpm = cM-clM
-    }
-    if (cS<clS){
-      tpm -= 1
-      tps = 60-clS+cS
-    }else{
-      tps = cS-clS
-    }
-    
-    
-    // adds 0 to single digits for asthestics
-    if(tph<10){
-      tph = `0${tph}`
-    }
-    if(tpm<10){
-      tpm = `0${tpm}`
-    }
-    if(tps<10){
-      tps = `0${tps}`
-    }
-
-    // sets state of time passed
-    this.setState({timePassed:`${tph}:${tpm}:${tps}`})
-
-    // yeah exactly what it looks like
-    if(this.state.clockInTime==="00:00:00"){
-      this.setState({timePassed:"00:00:00"})
-    }
-  }
-  
-
 
   render(){
     return(
