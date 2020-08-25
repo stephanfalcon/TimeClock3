@@ -24,6 +24,8 @@ class App extends Component{
       currentTime:"00:00:00",
       clockInTime:"00:00:00",
       timePassed:"00:00:00",
+      breakTime:0,
+      onBreak:false,
       note:"",
       logs:[],
       logLoaded:false,
@@ -41,7 +43,7 @@ class App extends Component{
 
   //starts time ticking for current time 
   startTimer = ()=>{
-    setInterval(() => {
+    var timeint = setInterval(() => {
       var time = new Time()
       this.setState({
         currentTime:time.military,
@@ -49,8 +51,16 @@ class App extends Component{
         date:time.calendar,
         note:document.getElementsByClassName("text")[0].value
       })
-      this.setState({})
       this.setState({timePassed:timeDiff(this.state.currentTime,this.state.clockInTime)})
+    }, 1000);
+
+    var breakint  = setInterval(() => {
+      if(this.state.onBreak==true){
+        this.setState({breakTime:this.state.breakTime+1})
+        console.log(this.state.breakTime)
+      }else{
+        return
+      }
     }, 1000);
   }
 
@@ -85,6 +95,24 @@ class App extends Component{
     }else {
       alert("You are not clocked in")
     }
+  }
+
+  break = () =>{  
+
+    if(this.state.onBreak==true){
+      console.log(this.state.onBreak + " 0")
+      this.setState({onBreak:false})
+    }else{
+      console.log(this.state.onBreak + " 1")
+      this.setState({onBreak:true})
+    }
+      // this.setState({onBreak:true})
+      // breakTime = setInterval(() => {
+      //   this.setState({breakTime:this.state.breakTime+1})
+      //   console.log(this.state.breakTime)
+      // }, 1000);
+    
+
   }
 
   apiPost = () => {
@@ -166,7 +194,7 @@ class App extends Component{
         <h1>Time clock </h1>
         
         <div className={"container"}>
-          <Button func1={this.clockIn} func2={this.clockOut} clockedIn={this.state.clockedIn}/>
+          <Button func1={this.clockIn} func2={this.clockOut} func3={this.break} clockedIn={this.state.clockedIn}/>
         </div>
 
         <div className={"row"}>
