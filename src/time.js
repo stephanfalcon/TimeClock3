@@ -34,10 +34,22 @@ class Time {
             this.seconds = `0${this.seconds}`
         }
         
-        this.time = `${this.hours}:${this.minutes}:${this.seconds}`
-        this.military = `${this.mHours}:${this.minutes}:${this.seconds}`
+        this.military = {
+            hours:this.mHours,
+            minutes:this.mMinutes,
+            seconds:this.mSeconds,
+            time:`${this.mHours}:${this.minutes}:${this.seconds}` 
+        }
+
+        this.time = {
+            hours:this.hours,
+            minutes:this.minutes,
+            seconds:this.seconds,
+            time:`${this.hours}:${this.minutes}:${this.seconds}` 
+        }
 
         this.calendar = `${1+this.month}/${this.day}/${this.year}`
+
     }
 }
 

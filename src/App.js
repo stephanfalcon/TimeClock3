@@ -24,8 +24,12 @@ class App extends Component{
       currentTime:"00:00:00",
       clockInTime:"00:00:00",
       timePassed:"00:00:00",
-      breakTime:0,
+
+      breakStart:"00:00:00",
+      breakTime:"00:00:00",
       onBreak:false,
+
+
       note:"",
       logs:[],
       logLoaded:false,
@@ -34,6 +38,7 @@ class App extends Component{
 
     }
   }  
+  
   //starts ticking for current time
   componentDidMount(){
     this.startTimer()
@@ -46,8 +51,8 @@ class App extends Component{
     var timeint = setInterval(() => {
       var time = new Time()
       this.setState({
-        currentTime:time.military,
-        currentDisplay:time.time,
+        currentTime:time.military.time,
+        currentDisplay:time.time.time,
         date:time.calendar,
         note:document.getElementsByClassName("text")[0].value
       })
@@ -55,12 +60,7 @@ class App extends Component{
     }, 1000);
 
     var breakint  = setInterval(() => {
-      if(this.state.onBreak==true){
-        this.setState({breakTime:this.state.breakTime+1})
-        console.log(this.state.breakTime)
-      }else{
-        return
-      }
+      this.breakCheck()
     }, 1000);
   }
 
@@ -70,8 +70,8 @@ class App extends Component{
     if(this.state.clockedIn === false){
       var clockIn = new Time()
       this.setState({
-        clockInTime:clockIn.military,
-        clockInDisplay:clockIn.time,
+        clockInTime:clockIn.military.time,
+        clockInDisplay:clockIn.time.time,
         clockedIn:true
       })
 
@@ -97,22 +97,30 @@ class App extends Component{
     }
   }
 
+  //activates break mode
+  //
   break = () =>{  
 
     if(this.state.onBreak==true){
-      console.log(this.state.onBreak + " 0")
+      this.setState({breakStart:"00:00:00"})
+      console.log("you are now of break")
       this.setState({onBreak:false})
     }else{
-      console.log(this.state.onBreak + " 1")
+      this.setState({breakStart:this.state.currentTime})
+      console.log(this.state.breakStart)
+      console.log("your are now on break")
       this.setState({onBreak:true})
     }
-      // this.setState({onBreak:true})
-      // breakTime = setInterval(() => {
-      //   this.setState({breakTime:this.state.breakTime+1})
-      //   console.log(this.state.breakTime)
-      // }, 1000);
-    
+  }
 
+  breakCheck= () =>{
+    if(this.state.onBreak==true){
+      // this.setState({breakTime:this.state.breakTime+1})
+      this.setState({breakTime:timeDiff(this.state.currentTime,this.state.breakStart)})
+      console.log(this.state.breakTime)
+    }else{
+      return
+    }
   }
 
   apiPost = () => {
