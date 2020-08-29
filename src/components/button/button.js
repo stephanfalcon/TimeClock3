@@ -6,12 +6,33 @@ class Button extends Component{
   
   render(){
     
-    var indicator = ''
+    var clockInIndicator = ''
+
+    var breakIndicator = this.props.onBreak
+    var breakText = ""
+
+    if (breakIndicator === true){
+      var breakStyle = {
+        background:"red",
+        borderWidth:"0px",
+        borderRadius:"5px",
+        width:"10%"
+      }
+      breakText = "ON BREAK"
+    }else{
+      var breakStyle = {
+        background:"green",
+        borderWidth:"0px",
+        borderRadius:"5px",
+        width:"10%"
+      }
+      breakText = "OFF BREAK"
+    }
 
     if (this.props.clockedIn === true){
-    indicator = "Clocked in"
+    clockInIndicator = "Clocked in"
     }else{
-    indicator = "Clocked out"
+    clockInIndicator = "Clocked out"
     }
     var clockInStyle = {
       background:"#048def",
@@ -23,11 +44,7 @@ class Button extends Component{
       borderWidth:"0px",
       borderRadius:"5px"
     }
-    var breakStyle = {
-      background:"green",
-      borderWidth:"0px",
-      borderRadius:"5px"
-    }
+
     var indicatorStyle = {
       background:"#7F0000",
       borderWidth:"0px",
@@ -57,9 +74,9 @@ class Button extends Component{
       <div className={"row buttons"}>
           <button style={clockInStyle} className={"btn btn-primary"} onClick={this.props.func1}>Clock in</button>
           <button style={clockOutStyle} className={"btn btn-warning"} onClick={this.props.func2}>Clock out</button>
-          <button style={breakStyle} classname={"btn btn-primary"} onClick={this.props.func3}>Take a break</button>
-          <button style={breakStyle} classname={"btn btn-primary"}>{this.props.breakTime}</button>
-          <button style={indicatorStyle} className={"btn flex-right ml-auto p-2 bd-highlight"}>{indicator}</button>
+          <button style={breakStyle} className={"btn btn-primary"} onClick={this.props.func3}>{breakText}</button>
+          <button style={breakStyle} className={"btn btn-primary"} onClick={this.props.func3}>{this.props.breakTime}</button>
+          <button style={indicatorStyle} className={"btn flex-right ml-auto p-2 bd-highlight"}>{clockInIndicator}</button>
       </div>
       
     )

@@ -1,3 +1,4 @@
+//v0.5.1
 import React, { Component } from 'react';
 import Time from "./time"
 import timeDiff from "./timediff"
@@ -117,16 +118,18 @@ class App extends Component{
   //activates break mode
   //
   break = () =>{  
+    if(this.state.clockedIn){
+      if(this.state.onBreak==true){
+  
+        console.log("you are now off break")
+        this.setState({onBreak:false})
+      }else{
+        this.setState({breakStart:this.state.currentTime})
+        console.log("your are now on break")
+        
+        this.setState({onBreak:true})
+      }
 
-    if(this.state.onBreak==true){
-
-      console.log("you are now off break")
-      this.setState({onBreak:false})
-    }else{
-      this.setState({breakStart:this.state.currentTime})
-      console.log("your are now on break")
-      
-      this.setState({onBreak:true})
     }
   }
 
@@ -172,7 +175,7 @@ timepassed:${this.state.timePassed}`)
         <h1>Time clock </h1>
         
         <div className={"container"}>
-          <Button func1={this.clockIn} func2={this.clockOut} func3={this.break} clockedIn={this.state.clockedIn} breakTime={this.state.breakTime}/>
+          <Button func1={this.clockIn} func2={this.clockOut} func3={this.break} clockedIn={this.state.clockedIn} breakTime={this.state.breakTime} onBreak={this.state.onBreak}/>
         </div>
 
         <div className={"row"}>
