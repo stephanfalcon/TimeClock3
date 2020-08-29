@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Time from "./time"
 import timeDiff from "./timediff"
+import timeConverter from "./timeConverter"
+import api from "./api"
 
 import axios from "axios"
 
@@ -38,12 +40,12 @@ class App extends Component{
 
     }
   }  
-  
   //starts ticking for current time
-  componentDidMount(){
+  componentDidMount(){    
     this.startTimer()
-    this.apiCall()
-
+    api.apiCall((entries)=>{
+      this.setState({logs:entries})
+    })
   }
 
   //starts time ticking for current time 
@@ -60,7 +62,10 @@ class App extends Component{
     }, 1000);
 
     var breakint  = setInterval(() => {
-      this.breakCheck()
+      if(this.state.clockedIn==true){
+        this.breakCheck()
+      }
+
     }, 1000);
   }
 
@@ -82,7 +87,15 @@ class App extends Component{
 
   clockOut = () => {
     if(this.state.clockedIn === true){
-      this.apiPost()
+      api.apiPost({
+        clockInDisplay:this.state.clockInDisplay,
+        currentDisplay:this.state.currentDisplay,
+        timePassed:this.state.timePassed,
+        date:this.state.date,
+        note:this.state.note
+      },(entries)=>{
+        this.setState({logs:entries})
+      })
       
       this.setState({
         clockedIn:false,
@@ -107,8 +120,8 @@ class App extends Component{
       this.setState({onBreak:false})
     }else{
       this.setState({breakStart:this.state.currentTime})
-      console.log(this.state.breakStart)
       console.log("your are now on break")
+      
       this.setState({onBreak:true})
     }
   }
@@ -117,73 +130,16 @@ class App extends Component{
     if(this.state.onBreak==true){
       // this.setState({breakTime:this.state.breakTime+1})
       this.setState({breakTime:timeDiff(this.state.currentTime,this.state.breakStart)})
-      console.log(this.state.breakTime)
+      this.setState({timePassed:timeDiff(this.state.timePassed,this.state.breakTime)})
+      // console.log(`timediff for time passed: ${timeDiff(this.state.breakStart,this.state.timePassed)}`)
+      console.log(`
+      break start: ${this.state.breakStart}
+current time: ${this.state.currentTime}
+break time: ${this.state.breakTime}
+timepassed:${this.state.timePassed}`)
     }else{
       return
     }
-  }
-
-  apiPost = () => {
-    console.log("this function works")
-    axios.post("https://timeclockapi.herokuapp.com/clocklog",{
-      clockInTime:this.state.clockInDisplay,
-      clockOutTime:this.state.currentDisplay,
-      timePassed:this.state.timePassed,
-      date:this.state.date,
-      note:this.state.note
-    })
-    // axios.post("https://timeclockapi.herokuapp.com/clocklog",shift)
-    .then((res)=>{
-      console.log(res)
-      this.apiCall()
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-    
-  }
-
-  apiCall = () => {
-    axios.get("https://timeclockapi.herokuapp.com/clocklog")
-    .then((res)=>{
-      this.setState({logs:res.data.docs.reverse()})
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
-
-  apiDelete = (event) =>{
-    var id = event.target.dataset.id
-    axios.delete(`https://timeclockapi.herokuapp.com/clocklog/${id}`)
-    .then((res)=>{
-      console.log(res)
-      this.apiCall()
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-    
-  }
-
-  apiEdit = (event) => {
-    let id = event.target.dataset.id
-    let newValue = event.target.value
-
-    console.log(id,newValue)
-
-
-    axios.put(`https://timeclockapi.herokuapp.com/clocklog/${id}`,{
-      note:newValue
-    })
-    .then((res)=>{
-      console.log(res)
-      this.apiCall()
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-
   }
 
   focus = () => {
@@ -192,7 +148,15 @@ class App extends Component{
 
   offFocus = (event) => {
     console.log("this has lost focus")
-    this.apiEdit(event)
+    api.apiEdit(event,(entries)=>{
+      this.setState({logs:entries})
+    })
+  }
+
+  delete = (event) => {
+    api.apiDelete(event,(entries)=>{
+      this.setState({logs:entries})
+    })
   }
 
   render(){
@@ -212,7 +176,7 @@ class App extends Component{
         </div>
         {/* notes go here */}
         <Text></Text>
-        <Log entries={this.state.logs} function={this.apiDelete} focus={this.focus} offFocus={this.offFocus}/>
+        <Log entries={this.state.logs} function={this.delete} focus={this.focus} offFocus={this.offFocus}/>
       </div>
     )
   }

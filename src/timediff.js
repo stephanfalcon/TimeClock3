@@ -1,4 +1,4 @@
-var timeDiff = (currentTime,clockinTime) => {
+var timeDiff = (currentTime,clockinTime,breakTime="00:00:00") => {
     //setting up current time and clock in time
     var currentH = parseInt(currentTime.slice(0,2))
     var currentM = parseInt(currentTime.slice(3,5))
@@ -7,25 +7,29 @@ var timeDiff = (currentTime,clockinTime) => {
     var clockInH = parseInt(clockinTime.slice(0,2))
     var clockInM = parseInt(clockinTime.slice(3,5))
     var clockInS = parseInt(clockinTime.slice(6))
-    
+
+    var breakH = parseInt(breakTime.slice(0,2))
+    var breakM = parseInt(breakTime.slice(3,5))
+    var breakS = parseInt(breakTime.slice(6))
+
     var timepassedH,timepassedM,timepassedS
     
     var timePassed
     
     //makes it so time passed is not negative, then suptracts
     //to give time difference
-    timepassedH = currentH-clockInH
+    timepassedH = currentH-clockInH-breakH
     if (currentM<clockInM){
         timepassedH -= 1
         timepassedM = 60-clockInM+currentM
     }else{
-        timepassedM = currentM-clockInM
+        timepassedM = currentM-clockInM-breakM
     }
     if (currentS<clockInS){
         timepassedM -= 1
         timepassedS = 60-clockInS+currentS
     }else{
-        timepassedS = currentS-clockInS
+        timepassedS = currentS-clockInS-breakS
     }
     
     
