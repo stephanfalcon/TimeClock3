@@ -3,6 +3,7 @@ import Time from "./time"
 import timeDiff from "./timediff"
 import timeConverter from "./timeConverter"
 import api from "./api"
+import timeAdd from "./timeAdd"
 
 import axios from "axios"
 
@@ -58,7 +59,9 @@ class App extends Component{
         date:time.calendar,
         note:document.getElementsByClassName("text")[0].value
       })
-      this.setState({timePassed:timeDiff(this.state.currentTime,this.state.clockInTime)})
+      this.setState({timePassed:timeDiff(this.state.currentTime,this.state.clockInTime,this.state.breakTime)})
+      // this.setState({timePassed:timeDiff(this.state.timePassed,this.state.breakTime)})
+
     }, 1000);
 
     var breakint  = setInterval(() => {
@@ -102,6 +105,7 @@ class App extends Component{
         clockInDisplay:"00:00:00",
         clockInTime:"00:00:00",
         timePassed:"00:00:00",
+        breakTime:"00:00:00",
         note:""
       })
       document.getElementsByClassName("text")[0].value = ""
@@ -115,8 +119,8 @@ class App extends Component{
   break = () =>{  
 
     if(this.state.onBreak==true){
-      this.setState({breakStart:"00:00:00"})
-      console.log("you are now of break")
+
+      console.log("you are now off break")
       this.setState({onBreak:false})
     }else{
       this.setState({breakStart:this.state.currentTime})
@@ -129,8 +133,10 @@ class App extends Component{
   breakCheck= () =>{
     if(this.state.onBreak==true){
       // this.setState({breakTime:this.state.breakTime+1})
-      this.setState({breakTime:timeDiff(this.state.currentTime,this.state.breakStart)})
-      this.setState({timePassed:timeDiff(this.state.timePassed,this.state.breakTime)})
+      // this.setState({breakTime:timeDiff(this.state.currentTime,this.state.breakStart)})
+      
+      this.setState({breakTime:timeAdd(this.state.breakTime)})
+      // this.setState({timePassed:timeDiff(this.state.timePassed,this.state.breakTime)})
       // console.log(`timediff for time passed: ${timeDiff(this.state.breakStart,this.state.timePassed)}`)
       console.log(`
       break start: ${this.state.breakStart}
@@ -166,7 +172,7 @@ timepassed:${this.state.timePassed}`)
         <h1>Time clock </h1>
         
         <div className={"container"}>
-          <Button func1={this.clockIn} func2={this.clockOut} func3={this.break} clockedIn={this.state.clockedIn}/>
+          <Button func1={this.clockIn} func2={this.clockOut} func3={this.break} clockedIn={this.state.clockedIn} breakTime={this.state.breakTime}/>
         </div>
 
         <div className={"row"}>
@@ -176,7 +182,7 @@ timepassed:${this.state.timePassed}`)
         </div>
         {/* notes go here */}
         <Text></Text>
-        <Log entries={this.state.logs} function={this.delete} focus={this.focus} offFocus={this.offFocus}/>
+        <Log entries={this.state.logs} function={this.delete} focus={this.focus} offFocus={this.offFocus} />
       </div>
     )
   }

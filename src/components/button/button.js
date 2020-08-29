@@ -58,6 +58,7 @@ class Button extends Component{
           <button style={clockInStyle} className={"btn btn-primary"} onClick={this.props.func1}>Clock in</button>
           <button style={clockOutStyle} className={"btn btn-warning"} onClick={this.props.func2}>Clock out</button>
           <button style={breakStyle} classname={"btn btn-primary"} onClick={this.props.func3}>Take a break</button>
+          <button style={breakStyle} classname={"btn btn-primary"}>{this.props.breakTime}</button>
           <button style={indicatorStyle} className={"btn flex-right ml-auto p-2 bd-highlight"}>{indicator}</button>
       </div>
       

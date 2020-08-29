@@ -21,13 +21,13 @@ var timeDiff = (currentTime,clockinTime,breakTime="00:00:00") => {
     timepassedH = currentH-clockInH-breakH
     if (currentM<clockInM){
         timepassedH -= 1
-        timepassedM = 60-clockInM+currentM
+        timepassedM = 60-clockInM+currentM-breakM
     }else{
         timepassedM = currentM-clockInM-breakM
     }
     if (currentS<clockInS){
         timepassedM -= 1
-        timepassedS = 60-clockInS+currentS
+        timepassedS = 60-clockInS+currentS-breakS
     }else{
         timepassedS = currentS-clockInS-breakS
     }
