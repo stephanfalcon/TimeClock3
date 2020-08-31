@@ -38,7 +38,11 @@ class App extends Component{
       logs:[],
       logLoaded:false,
       clockedIn: false,
-      indicator:""
+      indicator:"",
+
+      loggedIn:false
+      
+      
 
     }
   }  

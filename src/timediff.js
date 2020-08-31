@@ -19,19 +19,6 @@ var timeDiff = (currentTime,clockinTime,breakTime="00:00:00") => {
     //makes it so time passed is not negative, then suptracts
     //to give time difference
 
-    // timepassedS = currentS-clockInS
-    // if(timepassedS < 0){
-    //     timepassedM -= 1
-    //     timepassedS += 60
-    // }
-    // timepassedM = currentM-clockInM
-    // console.log(clockInM)
-    // if(timepassedM < 0){
-    //     timepassedH -= 1
-    //     timepassedM += 60
-    // }
-    // timepassedH = currentH-clockInH
-
     timepassedH = currentH-clockInH
     if (currentM<clockInM){
         timepassedH -= 1
