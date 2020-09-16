@@ -12,6 +12,7 @@ import Clock from "./components/clock/clock"
 import Button from "./components/button/button"
 import Log from "./components/log/log"
 import Text from "./components/text/text"
+import dotenv from "dotenv"
 
 class App extends Component{
   constructor(){
@@ -49,8 +50,14 @@ class App extends Component{
   //starts ticking for current time
   componentDidMount(){    
     this.startTimer()
-    api.apiCall((entries)=>{
-      this.setState({logs:entries})
+
+    api.sessionCall((data)=>{
+      console.log("session data:"+ data)      
+      this.setState({user:data})
+      console.log(this.state)
+      api.apiCall(this.state.user,(entries)=>{
+        this.setState({logs:entries})
+      })
     })
   }
 
@@ -94,29 +101,30 @@ class App extends Component{
   }
 
   clockOut = () => {
-    if(this.state.clockedIn === true){
-      api.apiPost({
-        clockInDisplay:this.state.clockInDisplay,
-        currentDisplay:this.state.currentDisplay,
-        timePassed:this.state.timePassed,
-        date:this.state.date,
-        note:this.state.note
-      },(entries)=>{
-        this.setState({logs:entries})
-      })
+    // if(this.state.clockedIn === true){
+    //   api.apiPost({
+    //     clockInDisplay:this.state.clockInDisplay,
+    //     currentDisplay:this.state.currentDisplay,
+    //     timePassed:this.state.timePassed,
+    //     date:this.state.date,
+    //     userId:this.state.user,
+    //     note:this.state.note
+    //   },(entries)=>{
+    //     this.setState({logs:entries})
+    //   })
       
-      this.setState({
-        clockedIn:false,
-        clockInDisplay:"00:00:00",
-        clockInTime:"00:00:00",
-        timePassed:"00:00:00",
-        breakTime:"00:00:00",
-        note:""
-      })
-      document.getElementsByClassName("text")[0].value = ""
-    }else {
-      alert("You are not clocked in")
-    }
+    //   this.setState({
+    //     clockedIn:false,
+    //     clockInDisplay:"00:00:00",
+    //     clockInTime:"00:00:00",
+    //     timePassed:"00:00:00",
+    //     breakTime:"00:00:00",
+    //     note:""
+    //   })
+    //   document.getElementsByClassName("text")[0].value = ""
+    // }else {
+    //   alert("You are not clocked in")
+    // }
   }
 
   //activates break mode
