@@ -14,7 +14,7 @@ const passport = require('passport')
 const api = require("./routes")
 
 app.use(cors())
-app.use(morgan({}))
+app.use(morgan(':method :url :res[content-length]'))
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyparser.urlencoded({extended:false}))
@@ -46,8 +46,6 @@ if(process.env.PATH == `C:\\Program Files\\Git\\mingw64\\bin;C:\\Program Files\\
   apiUrl = "https://timeclockapi.herokuapp.com"
   appUrl = "https://timeclock03.herokuapp.com"
 }
-console.log(process.env.PUBLIC_URL)
-console.log(apiUrl)
 
 
 // app.use((req,res,next)=>{
@@ -116,8 +114,12 @@ app.post('/login',passport.authenticate("local",{
 })
 
 app.get('/session',cors(),(req,res)=>{
-  console.log(req.session)
-  res.json(req.session.passport.user)
+  if(req.session.passport==undefined){
+    res.send()
+  }else{
+      res.json(req.session.passport.user)
+  }
+
 })
 
 

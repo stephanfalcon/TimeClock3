@@ -13,14 +13,20 @@ if(process.env.PATH == 'C:\\Program Files\\Git\\mingw64\\bin;C:\\Program Files\\
 
 var api = {
     apiCall(userId,cb) {
-        axios.get(`/api/${userId}`)
-        .then((res)=>{
-            console.log(res)
-            cb(res)
-        })
-        .catch((err)=>{
-            return(err)
-        })
+        if(userId==""){
+            alert("please sign in to record your times")
+        }else{
+            axios.get(`/api/${userId}`)
+            .then((res)=>{
+                console.log(res)
+                cb(res.data)
+            })
+            .catch((err)=>{
+                return(err)
+            })            
+        }
+
+
     },
 
     apiPost(entry,cd) {
@@ -29,13 +35,11 @@ var api = {
             clockOutTime:entry.currentDisplay,
             timePassed:entry.timePassed,
             date:entry.date,
+            userId:entry.userId,
             note:entry.note
         })
         .then((res)=>{
             console.log(res)
-            api.apiCall((entries)=>{
-                cd(entries)
-            })
         })
         .catch((err)=>{
             console.log(err)
@@ -48,10 +52,6 @@ var api = {
         axios.delete(`${apiUrl}/clocklog/${id}`)
         .then((res)=>{
             console.log(res)
-            api.apiCall((entries)=>{
-                cd(entries)
-            })
-            
         })
         .catch((err)=>{
             console.log(err)
@@ -70,9 +70,6 @@ var api = {
         })
         .then((res)=>{
             console.log(res)
-            api.apiCall((entries)=>{
-                cd(entries)
-            })
         })
         .catch((err)=>{
           console.log(err)

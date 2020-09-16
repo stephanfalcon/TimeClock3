@@ -5,7 +5,6 @@ const axios = require("axios")
 var apiUrl
 var appUrl
 
-console.log("env: "+process)
 if(process.env.PATH == 'C:\\Program Files\\Git\\mingw64\\bin;C:\\Program Files\\Git\\usr\\bin;C:\\Users\\hp\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\2.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\2.0\\bin\\x64;C:\\Program Files\\nodejs;C:\\Program Files\\MongoDB\\Server\\4.0\\bin;C:\\Program Files\\Git\\cmd;C:\\Users\\hp\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\heroku\\bin;C:\\Users\\hp\\AppData\\Roaming\\npm'){
   apiUrl = "http://localhost:3001"
 }else{
@@ -27,10 +26,11 @@ router.get("/:userId",(req,res)=>{
 router.post("/",(req,res)=>{
     console.log("this function works")
     axios.post(`${apiUrl}/clocklog`,{
-        clockInTime:req.body.clockInDisplay,
-        clockOutTime:req.body.currentDisplay,
+        clockInTime:req.body.clockInTime,
+        clockOutTime:req.body.clockOutTime,
         timePassed:req.body.timePassed,
         date:req.body.date,
+        userId:req.body.userId,
         note:req.body.note
     })
     .then((data)=>{
@@ -39,7 +39,7 @@ router.post("/",(req,res)=>{
     })
     .catch((err)=>{
         console.log(err)
-        res.json(data)
+        res.json(err)
     })
 })
 
