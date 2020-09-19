@@ -8,7 +8,6 @@ const session = require("express-session")
 const axios = require("axios")
 const cors = require("cors")
 const morgan = require("morgan");
-const user = require('../timeClockAPI/models/user');
 const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 const api = require("./routes")
