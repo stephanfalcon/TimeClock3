@@ -26,7 +26,7 @@ app.use(session(
     saveUninitialized: true,
     cookie: {
       sameSite:"lax",
-      secure:"true"
+      // secure:"true"
     },
     passport:{
       user:""
@@ -34,6 +34,7 @@ app.use(session(
     
   }
 ))
+// app.set('trust proxy', 1)
 app.use("/api",api)
 
 var apiUrl
