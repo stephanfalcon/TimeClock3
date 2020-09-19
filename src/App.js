@@ -49,6 +49,7 @@ class App extends Component{
   apiCall =()=>{
       api.apiCall(this.state.user,(entries)=>{
         this.setState({logs:entries})
+
       })
   }
 
@@ -57,6 +58,9 @@ class App extends Component{
     this.startTimer()
     api.sessionCall((data)=>{
       this.setState({user:data})
+      if(this.state.user!=""){
+        this.setState({loggedIn:true})
+      }
       this.apiCall()
     })
   }
@@ -107,7 +111,9 @@ class App extends Component{
         date:this.state.date,
         userId:this.state.user,
         note:this.state.note
-      },this.apiCall())
+      }, ()=>{
+        this.apiCall()
+      })
       
       this.setState({
         clockedIn:false,
@@ -148,12 +154,18 @@ class App extends Component{
   }
 
   offFocus = (event) => {
-    api.apiEdit(event,this.apiCall())
+    api.apiEdit(event,()=>{
+      this.apiCall()
+    })
   }
 
   delete = (event) => {
-    api.apiDelete(event,this.apiCall())
-  }
+    api.apiDelete(event,()=>{
+      this.apiCall()
+    })
+    }
+    
+  
 
   render(){
     return(
@@ -162,7 +174,7 @@ class App extends Component{
         <h1>Time clock </h1>
         
         <div className={"container"}>
-          <Button func1={this.clockIn} func2={this.clockOut} func3={this.break} clockedIn={this.state.clockedIn} breakTime={this.state.breakTime} onBreak={this.state.onBreak}/>
+          <Button func1={this.clockIn} func2={this.clockOut} func3={this.break} clockedIn={this.state.clockedIn} breakTime={this.state.breakTime} onBreak={this.state.onBreak} loggedIn={this.state.loggedIn}/>
         </div>
 
         <div className={"row"}>

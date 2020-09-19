@@ -18,7 +18,6 @@ var api = {
         }else{
             axios.get(`/api/${userId}`)
             .then((res)=>{
-                console.log(res)
                 cb(res.data)
             })
             .catch((err)=>{
@@ -29,7 +28,7 @@ var api = {
 
     },
 
-    apiPost(entry,cd) {
+    apiPost(entry,cb) {
         axios.post(`/api`,{
             clockInTime:entry.clockInDisplay,
             clockOutTime:entry.currentDisplay,
@@ -39,26 +38,24 @@ var api = {
             note:entry.note
         })
         .then((res)=>{
-            console.log(res)
+            cb(res.data)
         })
         .catch((err)=>{
-            console.log(err)
         })
 
     },
     
-    apiDelete(event,cd) {
+    apiDelete(event,cb) {
         var id = event.target.dataset.id
         axios.delete(`${apiUrl}/clocklog/${id}`)
         .then((res)=>{
-            console.log(res)
+            cb(res.data)
         })
         .catch((err)=>{
-            console.log(err)
         })
     },
 
-    apiEdit(event,cd) {
+    apiEdit(event) {
         let id = event.target.dataset.id
         let newValue = event.target.value
     
@@ -69,10 +66,8 @@ var api = {
           note:newValue
         })
         .then((res)=>{
-            console.log(res)
         })
         .catch((err)=>{
-          console.log(err)
         })
     },
     sessionCall(cb) {
