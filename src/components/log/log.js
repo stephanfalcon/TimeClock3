@@ -5,8 +5,16 @@ import "./log.css"
 class Log extends Component{
 
 
+    
+    // poop = () => setInterval(() => {
+    //         this.forceUpdate()
+    //         console.log("update")
+    //     }, 500);
+    
+
     componentDidMount(){
         console.log("loaded")
+
     }
 
   render(){
