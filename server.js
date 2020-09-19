@@ -26,7 +26,7 @@ app.use(session(
     saveUninitialized: true,
     cookie: {
       sameSite:"lax",
-      secure:"auto"
+      secure:"true"
     },
     passport:{
       user:""
