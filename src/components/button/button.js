@@ -24,13 +24,14 @@ class Button extends Component{
     this.indicatorStyle = {
       background:"#7F0000",
       borderWidth:"0px",
-      borderRadius:"5px"
+      borderRadius:"5px",
+      olor:"white"
     }
     this.breakStyle = {
       background:"green",
       borderWidth:"0px",
       borderRadius:"5px",
-      width:"10%"
+      width:"10px"
     }
 
 
@@ -81,7 +82,8 @@ class Button extends Component{
       this.indicatorStyle = {
         background:"#008000",
         borderWidth:"0px",
-        borderRadius:"5px"
+        borderRadius:"5px",
+        color:"black"
       }
     }else{
       this.clockInText = "Clocked out"
@@ -98,7 +100,8 @@ class Button extends Component{
       this.indicatorStyle = {
         background:"#7F0000",
         borderWidth:"0px",
-        borderRadius:"5px"
+        borderRadius:"5px",
+        color:"white"
       }
     }
 
@@ -107,16 +110,14 @@ class Button extends Component{
       this.breakStyle = {
         background:"red",
         borderWidth:"0px",
-        borderRadius:"5px",
-        width:"10%"
+        borderRadius:"5px"
       }
     }else{
       this.breakText = "OFF BREAK"
       this.breakStyle = {
         background:"green",
         borderWidth:"0px",
-        borderRadius:"5px",
-        width:"10%"
+        borderRadius:"5px"
       }
     }
 
