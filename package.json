@@ -28,7 +28,7 @@
     "node": "11.1.0"
   },
   "scripts": {
-    "start": "npm run-script build",
+    "start": "node server.js",
     "run": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
