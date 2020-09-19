@@ -24,6 +24,9 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.0.1"
   },
+  "engines": {
+    "node": "11.1.0"
+  },
   "scripts": {
     "start": "node server.js",
     "run": "react-scripts start",
