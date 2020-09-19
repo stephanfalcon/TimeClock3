@@ -133,7 +133,7 @@ app.get('/register',(req,res)=>{
 app.post('/register',(req,res)=>{
   axios.post(`${apiUrl}/user/register`,req.body)
   .then((data)=>{
-    res.json(data.data)
+    res.redirect("/login")
   })
   .catch((err)=>{
     res.json(err)
