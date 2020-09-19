@@ -3,82 +3,126 @@ import "./button.css"
 
 
 class Button extends Component{
-  
-  render(){
-    
-    var clockInIndicator = ''
+  constructor(props){
+    super(props)
+    this.clockInText = ''
 
-    var breakIndicator = this.props.onBreak
-    var breakText = ""
+    this.breakIndicator = this.props.onBreak
+    this.breakText = ""
+    this.breakStyle = {}
 
-    if (breakIndicator === true){
-      var breakStyle = {
-        background:"red",
-        borderWidth:"0px",
-        borderRadius:"5px",
-        width:"10%"
-      }
-      breakText = "ON BREAK"
-    }else{
-      var breakStyle = {
-        background:"green",
-        borderWidth:"0px",
-        borderRadius:"5px",
-        width:"10%"
-      }
-      breakText = "OFF BREAK"
-    }
-
-    if (this.props.clockedIn === true){
-    clockInIndicator = "Clocked in"
-    }else{
-    clockInIndicator = "Clocked out"
-    }
-    var clockInStyle = {
+    this.clockInStyle = {
       background:"#048def",
       borderWidth:"0px",
       borderRadius:"5px"
     }
-    var clockOutStyle = {
-      background:"#edc204",
+    this.clockOutStyle = {
+      background:"#8c7304",
       borderWidth:"0px",
       borderRadius:"5px"
     }
-
-    var indicatorStyle = {
+    this.indicatorStyle = {
       background:"#7F0000",
       borderWidth:"0px",
       borderRadius:"5px"
     }
+    this.breakStyle = {
+      background:"green",
+      borderWidth:"0px",
+      borderRadius:"5px",
+      width:"10%"
+    }
 
+
+  }
+
+  userButtons = () => {
+    return(
+      <div className={"row buttons"}>
+        <button style={this.clockInStyle} className={"btn btn-primary"} onClick={this.props.func1}>Clock in</button>
+        <button style={this.clockOutStyle} className={"btn btn-warning"} onClick={this.props.func2}>Clock out</button>
+        <button style={this.breakStyle} className={"btn btn-primary"} onClick={this.props.func3}>{this.breakText}</button>
+        <button style={this.breakStyle} className={"btn btn-primary"} onClick={this.props.func3}>{this.props.breakTime}</button>
+        <button style={this.indicatorStyle} className={"btn flex-right ml-auto p-2 bd-highlight"}>{this.clockInText}</button>
+      </div>
+    )
+  }
+
+  guestButtons = () => {
+    return(
+      <div className={"row buttons"}>
+        <a href={"/login"}><button className={"btn btn-primary"}>sign in </button></a>
+        <a href={"/register"}><button className={"btn btn-success"}>sign up</button></a>
+      </div>
+    )
+  }
+
+  buttons = () => {
+    if(this.props.loggedIn == true){
+      return <this.userButtons />
+    }else{
+      return <this.guestButtons />
+    }
+  }
+
+  render(){
     if (this.props.clockedIn === true){
-      clockInStyle={
+      this.clockInText = "Clocked in"
+      this.clockInStyle = {
         background:"#01497c",
         borderWidth:"0px",
         borderRadius:"5px"
+      }      
+      this.clockOutStyle = {
+        background:"#edc204",
+        borderWidth:"0px",
+        borderRadius:"5px"
       }
-      indicatorStyle = {
+      this.indicatorStyle = {
         background:"#008000",
         borderWidth:"0px",
         borderRadius:"5px"
       }
     }else{
-      clockOutStyle={
+      this.clockInText = "Clocked out"
+      this.clockInStyle = {
+        background:"#048def",
+        borderWidth:"0px",
+        borderRadius:"5px"
+      }
+      this.clockOutStyle = {
         background:"#8c7304",
+        borderWidth:"0px",
+        borderRadius:"5px"
+      }
+      this.indicatorStyle = {
+        background:"#7F0000",
         borderWidth:"0px",
         borderRadius:"5px"
       }
     }
 
+    if (this.props.onBreak === true){
+      this.breakText = "ON BREAK"
+      this.breakStyle = {
+        background:"red",
+        borderWidth:"0px",
+        borderRadius:"5px",
+        width:"10%"
+      }
+    }else{
+      this.breakText = "OFF BREAK"
+      this.breakStyle = {
+        background:"green",
+        borderWidth:"0px",
+        borderRadius:"5px",
+        width:"10%"
+      }
+    }
+
+
     return(
-      <div className={"row buttons"}>
-          <button style={clockInStyle} className={"btn btn-primary"} onClick={this.props.func1}>Clock in</button>
-          <button style={clockOutStyle} className={"btn btn-warning"} onClick={this.props.func2}>Clock out</button>
-          <button style={breakStyle} className={"btn btn-primary"} onClick={this.props.func3}>{breakText}</button>
-          <button style={breakStyle} className={"btn btn-primary"} onClick={this.props.func3}>{this.props.breakTime}</button>
-          <button style={indicatorStyle} className={"btn flex-right ml-auto p-2 bd-highlight"}>{clockInIndicator}</button>
-      </div>
-      
+      <this.buttons/>
     )
   }
 }
